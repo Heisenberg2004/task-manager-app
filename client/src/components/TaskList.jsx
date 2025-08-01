@@ -14,6 +14,8 @@ const TaskList = () => {
   // เก็บข้อความที่พิมพ์ใน input และ setNewTask ใช้เปลี่ยนข้อความนี้ เมื่อพิมพ์ หรือเมื่อ Add แล้วต้องล้าง input
   const [newTask, setNewTask] = useState("");
 
+  const [filter, setFilter] = useState("all"); // all | active | completed
+
   const handleAddTask = () => {
     if (newTask.trim() === "") return; // เช็คว่า newTask เป็นค่าว่างมั้ย
 
@@ -47,10 +49,15 @@ const TaskList = () => {
     setTasks(updatedTasks);
   };
 
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "active") return !task.completed;
+    if (filter === "completed") return task.completed;
+    return true;
+  });
+
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md">
       <h2 className="text-xl font-semibold mb-4">Task List</h2>
-
       <div className="flex mb-4 gap-2">
         <input
           type="text"
@@ -66,9 +73,29 @@ const TaskList = () => {
           Add
         </button>
       </div>
-
+      <div className="mb-4 space-x-2">
+        <button
+          className={filter === "all" ? "underline font-bold" : ""}
+          onClick={() => setFilter("all")}
+        >
+          All
+        </button>
+        <button
+          className={filter === "active" ? "underline font-bold" : ""}
+          onClick={() => setFilter("active")}
+        >
+          Active
+        </button>
+        <button
+          className={filter === "completed" ? "underline font-bold" : ""}
+          onClick={() => setFilter("completed")}
+        >
+          Completed
+        </button>
+      </div>
+      {console.log(tasks)}
       <ul className="space-y-3">
-        {tasks.map((task) => (
+        {filteredTasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
