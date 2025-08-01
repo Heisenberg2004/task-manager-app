@@ -40,6 +40,13 @@ const TaskList = () => {
     setTasks(updatedTasks);
   };
 
+  const handleEditTask = (id, newTitle) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === id ? { ...task, title: newTitle } : task
+    );
+    setTasks(updatedTasks);
+  };
+
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md">
       <h2 className="text-xl font-semibold mb-4">Task List</h2>
@@ -66,7 +73,8 @@ const TaskList = () => {
             key={task.id}
             task={task}
             onToggle={toggleComplete}
-            handleDelete={handleDeleteTask}
+            onDelete={handleDeleteTask}
+            onEdit={handleEditTask}
           />
         ))}
       </ul>
