@@ -2,24 +2,26 @@ import React, { useState } from "react";
 import TaskItem from "./TaskItem";
 
 const TaskList = () => {
+  // ไว้อัพเดต รายการงาน
   const [tasks, setTasks] = useState([
     { id: 1, title: "Learn React", completed: false },
     { id: 2, title: "Build Task Manager", completed: true },
   ]);
-
+  // เก็บข้อความที่พิมพ์ใน input และ setNewTask ใช้เปลี่ยนข้อความนี้ เมื่อพิมพ์ หรือเมื่อ Add แล้วต้องล้าง input
   const [newTask, setNewTask] = useState("");
 
   const handleAddTask = () => {
-    if (newTask.trim() === "") return;
+    if (newTask.trim() === "") return; // เช็คว่า newTask เป็นค่าว่างมั้ย
 
+    // สร้าง task ใหม่ (object)
     const newItem = {
-      id: Date.now(),
-      title: newTask.trim(),
-      completed: false,
+      id: Date.now(), // สร้าง ID ใหม่จาก timestamp
+      title: newTask.trim(), // ใช้ข้อความที่ผู้ใช้พิมพ์
+      completed: false, // task ใหม่ = false
     };
 
-    setTasks([...tasks, newItem]);
-    setNewTask("");
+    setTasks([...tasks, newItem]); // เอา array เก่า tasks มาคลาย (...tasks), ต่อท้ายด้วย newItem -> กล้ายเป็น array ใหม่ที่มี task ใหม่ต่อท้าย
+    setNewTask(""); // หลังจากเพิ่ม task แล้วรีเช็ตช่อง input ให้ว่าง
   };
 
   return (

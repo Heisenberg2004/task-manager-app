@@ -2,15 +2,13 @@ import React from "react";
 
 const TaskItem = ({ task }) => {
   return (
-    <li
-      className={`flex justify-between items-center p-3 rounded-lg ${
-        task.completed ? "bg-green-100" : "bg-gray-100"
-      }`}
-    >
-      <span className={`${task.completed ? "line-through text-gray-400" : ""}`}>
+    <li className="flex items-center justify-between bg-gray-100 px-4 py-2 rounded-lg">
+      <span className={task.completed ? "line-through text-gray-400" : ""}>
         {task.title}
       </span>
-      <input type="checkbox" checked={task.completed} readOnly />
+      <span className="text-sm text-gray-500">
+        {task.completed ? "✅ Done" : "🕒 Pending"}
+      </span>
     </li>
   );
 };
