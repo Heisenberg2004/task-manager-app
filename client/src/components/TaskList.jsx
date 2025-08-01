@@ -24,6 +24,13 @@ const TaskList = () => {
     setNewTask(""); // หลังจากเพิ่ม task แล้วรีเช็ตช่อง input ให้ว่าง
   };
 
+  const toggleComplete = (id) => {
+    const updated = tasks.map((task) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updated);
+  };
+
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md">
       <h2 className="text-xl font-semibold mb-4">Task List</h2>
@@ -46,7 +53,7 @@ const TaskList = () => {
 
       <ul className="space-y-3">
         {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} />
+          <TaskItem key={task.id} task={task} onToggle={toggleComplete} />
         ))}
       </ul>
     </div>
