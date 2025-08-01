@@ -25,10 +25,15 @@ const TaskList = () => {
   };
 
   const toggleComplete = (id) => {
-    const updated = tasks.map((task) =>
+    const updatedTasks = tasks.map((task) =>
       task.id === id ? { ...task, completed: !task.completed } : task
     );
-    setTasks(updated);
+    setTasks(updatedTasks);
+  };
+
+  const handleDeleteTask = (id) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
   };
 
   return (
@@ -53,7 +58,12 @@ const TaskList = () => {
 
       <ul className="space-y-3">
         {tasks.map((task) => (
-          <TaskItem key={task.id} task={task} onToggle={toggleComplete} />
+          <TaskItem
+            key={task.id}
+            task={task}
+            onToggle={toggleComplete}
+            handleDelete={handleDeleteTask}
+          />
         ))}
       </ul>
     </div>
