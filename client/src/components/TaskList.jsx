@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TaskItem from "./TaskItem";
 
 const TaskList = () => {
-  // ไว้อัพเดต รายการงาน
-  const [tasks, setTasks] = useState([
-    { id: 1, title: "Learn React", completed: false },
-    { id: 2, title: "Build Task Manager", completed: true },
-  ]);
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   // เก็บข้อความที่พิมพ์ใน input และ setNewTask ใช้เปลี่ยนข้อความนี้ เมื่อพิมพ์ หรือเมื่อ Add แล้วต้องล้าง input
   const [newTask, setNewTask] = useState("");
 
